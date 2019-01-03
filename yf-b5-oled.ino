@@ -128,9 +128,9 @@ unsigned long totalMilliLitres;
 
 unsigned long oldTime;
 /////////////
-
+//////////////////////////////////////////////////////////////////////
 void setup(void) {
-  
+ /* 
   // flip screen, if required
   // u8g.setRot180();
   
@@ -150,7 +150,7 @@ void setup(void) {
   else if ( u8g.getMode() == U8G_MODE_HICOLOR ) {
     u8g.setHiColorByRGB(255,255,255);
   }
-
+*/
  //////////// 
   pinMode(sensorPin, INPUT);
   digitalWrite(sensorPin, HIGH);
@@ -167,7 +167,7 @@ void setup(void) {
   attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
   /////////////
 }
-
+////////////////////////////////////////////////////////////
 void loop(void) {
      
    if((millis() - oldTime) > 1000)    // Only process counters once per second
@@ -229,23 +229,30 @@ void loop(void) {
   } while( u8g.nextPage() );
   
   // rebuild the picture after some delay
-  delay(500);
+  //delay(500);
 }
-
+///////////////////////////////////////////////////////////////////////
 void pulseCounter()
 {
   // Increment the pulse counter
   pulseCount++;
 }
 
-
+///////////////////////////////////////////////////////////////////////
 void draw(void) {
   // graphic commands to redraw the complete screen should be placed here  
-  u8g.setFont(u8g_font_unifont);
-
-  u8g.setPrintPos(0, 10); u8g.print("L/m: ");u8g.print((int)flowRate);
-  u8g.setPrintPos(0, 25); u8g.print("L/h: ");u8g.print((int)flowRate*60);
-  u8g.setPrintPos(0, 45); u8g.print((int)totalMilliLitres); u8g.print(" mL");
-  u8g.setPrintPos(0, 60); u8g.print((int)totalMilliLitres/1000); u8g.print(" L");
+  u8g.setFont(u8g_font_timR08r);
+   u8g.setPrintPos(0, 8); u8g.print("ATmega168 (5v, 16 MHz)");
+//   u8g.setFont(u8g_font_helvR08r);
+//  u8g.setFont(u8g_font_unifont);
+    u8g.setFont(u8g_font_timR10r);
+    u8g.setPrintPos(0, 22); u8g.print("L/m: ");u8g.print((int)flowRate);
+    u8g.setFont(u8g_font_timR12r);
+    u8g.setPrintPos(0, 35); u8g.print("L/h: ");u8g.print((int)flowRate*60);
+    u8g.setFont(u8g_font_timR10r);
+    u8g.setPrintPos(0, 50); u8g.print((int)totalMilliLitres); u8g.print(" mL");
+    u8g.setFont(u8g_font_timR12r);
+    u8g.setPrintPos(0, 64); u8g.print((int)totalMilliLitres/1000); u8g.print(" L");
 
 }
+////////////////////////////////////////////////////////////////////////
